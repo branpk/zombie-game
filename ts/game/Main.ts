@@ -30,7 +30,8 @@ const texts = msgs.map(m => new PIXI.Text(m, FontManager.DISPLAY));
 texts.forEach(t => { t.anchor.set(0.5); t.y = Camera.height / 2; });
 
 app.ticker.add(() => {
-  game.update();
+  const dt = Math.min(app.ticker.deltaMS / 1000, 0.1);
+  game.update(dt);
   game.render(ui);
   if (instructions) {
     const secs = instTimer.elapsed().inSecs();

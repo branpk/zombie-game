@@ -2,7 +2,6 @@ import * as PIXI from 'pixi.js';
 import { Camera } from './Camera.js';
 import { FontManager } from './FontManager.js';
 import { Input } from './Input.js';
-import { Timer } from './Timer.js';
 import { TextureManager } from './TextureManager.js';
 import { Level } from './level/Level.js';
 
@@ -10,7 +9,6 @@ export class Game {
   level: Level | null = null;
   paused = false;
   private levelOrder: string[] = [];
-  private frameTimer = new Timer();
   private keySprite: PIXI.Sprite = new PIXI.Sprite(TextureManager.KEY);
 
   constructor(levels: string[], private world: PIXI.Container) {
@@ -27,7 +25,6 @@ export class Game {
 
   openLevel(level: Level) {
     this.level = level;
-    this.frameTimer.restart();
     Camera.focus = level.player.pos;
     Camera.pixelsPerUnit = 40;
   }
@@ -37,9 +34,9 @@ export class Game {
     this.level = null;
   }
 
-  update() {
+  update(dt: number) {
     if (!this.level) return;
-    const dt = Math.min(this.frameTimer.tick().inSecs(), 0.1);
+    dt = Math.min(dt, 0.1);
     if (this.paused) return;
     this.level.update(dt);
     if (this.level.didWin) {
