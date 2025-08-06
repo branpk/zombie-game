@@ -1,0 +1,15 @@
+{
+  "name": "zombie-game-ts",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc && cp -r public/* dist/ && cp node_modules/pixi.js/dist/pixi.mjs dist/pixi.mjs && cp -r res dist/res",
+    "test": "tsc --noEmit"
+  },
+  "dependencies": {
+    "pixi.js": "^7.2.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "@types/node": "^18.0.0"
+  }
+}
