@@ -1,13 +1,12 @@
 package game.creature;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.glfw.GLFW.*;
 import game.DebugMode;
 import game.Vector;
 import game.level.Level;
-
-import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureImpl;
+import game.Input;
+import game.Texture;
 
 public class Creature {
 	public Vector pos, vel = Vector.zeroVector;
@@ -115,25 +114,25 @@ public class Creature {
 			glVertex2f(0, 0);
 			glVertex2f(1, 0);
 			glEnd();
-		} else {
-			texture.bind();
-			glColor4f(1, 1, 1, invincible > 0 ? 0.5f : 1);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 1);
-			glVertex2f(-1, -1);
-			glTexCoord2f(1, 1);
-			glVertex2f(1, -1);
-			glTexCoord2f(1, 0);
-			glVertex2f(1, 1);
-			glTexCoord2f(0, 0);
-			glVertex2f(-1, 1);
-			glEnd();
-			TextureImpl.bindNone();
-		}
+                } else {
+                        texture.bind();
+                        glColor4f(1, 1, 1, invincible > 0 ? 0.5f : 1);
+                        glBegin(GL_QUADS);
+                        glTexCoord2f(0, 1);
+                        glVertex2f(-1, -1);
+                        glTexCoord2f(1, 1);
+                        glVertex2f(1, -1);
+                        glTexCoord2f(1, 0);
+                        glVertex2f(1, 1);
+                        glTexCoord2f(0, 0);
+                        glVertex2f(-1, 1);
+                        glEnd();
+                        Texture.bindNone();
+                }
 		
 		glPopMatrix();
 		
-		if (DebugMode.enabled && Keyboard.isKeyDown(Keyboard.KEY_6)) {
+                if (DebugMode.enabled && Input.isKeyDown(GLFW_KEY_6)) {
 			glPushMatrix();
 			glTranslatef(pos.x, pos.y, 0);
 			glRotatef((float) (angle*180/Math.PI), 0, 0, 1);

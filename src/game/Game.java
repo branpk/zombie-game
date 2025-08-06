@@ -1,5 +1,6 @@
 package game;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.glfw.GLFW.*;
 import game.level.Level;
 import game.level.LevelEditor;
 
@@ -7,11 +8,9 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import org.newdawn.slick.opengl.TextureImpl;
-
+import game.Mouse;
+import game.Window;
+import game.Texture;
 
 public class Game {
 	public Level level = null;
@@ -94,20 +93,20 @@ public class Game {
 		
 		Camera.focus = level.player.pos;
 		
-		if (DebugMode.enabled) { 
-			Camera.pixelsPerUnit += 0.01f*Mouse.getDWheel();
-			
-			if (levelEditor != null) {
-				levelEditor.update();
-			}
-			if (Input.wasPressed(Keyboard.KEY_D)) {
-				level.player.permInvincible = !level.player.permInvincible;
-			}
-			if (Input.wasPressed(Keyboard.KEY_TAB)) {
-				level.player.solid = !level.player.solid;
-			}
-		}
-	}
+                if (DebugMode.enabled) {
+                        Camera.pixelsPerUnit += 0.01f*Mouse.getDWheel();
+
+                        if (levelEditor != null) {
+                                levelEditor.update();
+                        }
+                        if (Input.wasPressed(GLFW_KEY_D)) {
+                                level.player.permInvincible = !level.player.permInvincible;
+                        }
+                        if (Input.wasPressed(GLFW_KEY_TAB)) {
+                                level.player.solid = !level.player.solid;
+                        }
+                }
+        }
 	
 	public void render() {
 		if (level == null) return;
@@ -122,7 +121,7 @@ public class Game {
 		
 		if (level.player.hasKey) {
 			glLoadIdentity();
-			glTranslatef(0, Display.getHeight(), 0);
+                        glTranslatef(0, Window.height, 0);
 			int numPixels = 40;
 			glScalef(numPixels, numPixels, 1);
 			
@@ -133,24 +132,25 @@ public class Game {
 			glVertex2f(0, -1);
 			glTexCoord2f(1, 1);
 			glVertex2f(1, -1);
-			glTexCoord2f(1, 0);
-			glVertex2f(1, 0);
-			glTexCoord2f(0, 0);
-			glVertex2f(0, 0);
-			glEnd();
-		}
+                        glTexCoord2f(1, 0);
+                        glVertex2f(1, 0);
+                        glTexCoord2f(0, 0);
+                        glVertex2f(0, 0);
+                        glEnd();
+                        Texture.bindNone();
+                }
 		
 		glLoadIdentity();
 		glTranslatef(0, FontManager.DISPLAY.getLineHeight(), 0);
 		glScalef(1, -1, 1);
-		FontManager.DISPLAY.drawString(0, 0, "Health: " + level.player.health);
-		TextureImpl.bindNone();
+                FontManager.DISPLAY.drawString(0, 0, "Health: " + level.player.health);
+                Texture.bindNone();
 		
 		glLoadIdentity();
 		String message = "Ammo: " + level.player.ammo;
-		glTranslatef(Display.getWidth() - FontManager.DISPLAY.getWidth(message), FontManager.DISPLAY.getLineHeight(), 0);
+                glTranslatef(Window.width - FontManager.DISPLAY.getWidth(message), FontManager.DISPLAY.getLineHeight(), 0);
 		glScalef(1, -1, 1);
-		FontManager.DISPLAY.drawString(0, 0, message);
-		TextureImpl.bindNone();
-	}
+                FontManager.DISPLAY.drawString(0, 0, message);
+                Texture.bindNone();
+        }
 }

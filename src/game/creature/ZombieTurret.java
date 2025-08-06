@@ -1,10 +1,9 @@
 package game.creature;
 import static org.lwjgl.opengl.GL11.*;
 import game.TextureManager;
+import game.Texture;
 import game.Vector;
 import game.level.Level;
-
-import org.newdawn.slick.opengl.TextureImpl;
 
 
 public class ZombieTurret extends Creature {
@@ -63,7 +62,7 @@ public class ZombieTurret extends Creature {
 		glTexCoord2f(0, 0);
 		glVertex2f(-1, 1);
 		glEnd();
-		TextureImpl.bindNone();
+                Texture.bindNone();
 		
 		glPopMatrix();
 	}

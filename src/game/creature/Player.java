@@ -2,15 +2,14 @@ package game.creature;
 import game.Bullet;
 import game.Camera;
 import game.Controls;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.glfw.GLFW.*;
 import game.DebugMode;
 import game.TextureManager;
 import game.Vector;
 import game.level.Level;
-
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-
-import static org.lwjgl.opengl.GL11.*;
+import game.Input;
+import game.Mouse;
 
 
 public class Player extends Creature {
@@ -35,17 +34,17 @@ public class Player extends Creature {
 		Vector facing = new Vector(angle);
 		
 		Vector moveDir = new Vector(0, 0);
-		if (Keyboard.isKeyDown(Controls.left)) 
-			moveDir = moveDir.add(new Vector(-1, 0));
-		if (Keyboard.isKeyDown(Controls.right)) 
-			moveDir = moveDir.add(new Vector(1, 0));
-		if (Keyboard.isKeyDown(Controls.down)) 
-			moveDir = moveDir.add(new Vector(0, -1));
-		if (Keyboard.isKeyDown(Controls.up)) 
-			moveDir = moveDir.add(new Vector(0, 1));
+                if (Input.isKeyDown(Controls.left))
+                        moveDir = moveDir.add(new Vector(-1, 0));
+                if (Input.isKeyDown(Controls.right))
+                        moveDir = moveDir.add(new Vector(1, 0));
+                if (Input.isKeyDown(Controls.down))
+                        moveDir = moveDir.add(new Vector(0, -1));
+                if (Input.isKeyDown(Controls.up))
+                        moveDir = moveDir.add(new Vector(0, 1));
 		moveDir = moveDir.direction();
 		float speed = 100 * (moveDir.dot(facing) + 3)/4;
-		if (DebugMode.enabled && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) speed *= 3;
+                if (DebugMode.enabled && Input.isKeyDown(GLFW_KEY_LEFT_SHIFT)) speed *= 3;
 		vel = vel.add(moveDir.scale(speed*dt));
 		
 		if (Mouse.isButtonDown(0) && !mouseWasDown && ammo > 0) {

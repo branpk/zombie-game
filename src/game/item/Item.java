@@ -2,9 +2,7 @@ package game.item;
 import static org.lwjgl.opengl.GL11.*;
 import game.Vector;
 import game.creature.Creature;
-
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureImpl;
+import game.Texture;
 
 
 public abstract class Item {
@@ -43,19 +41,19 @@ public abstract class Item {
 			glVertex2f(1, 0);
 			glEnd();
 		} else {
-			texture.bind();
-			glColor3f(1, 1, 1);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 1);
-			glVertex2f(-1, -1);
-			glTexCoord2f(1, 1);
-			glVertex2f(1, -1);
-			glTexCoord2f(1, 0);
-			glVertex2f(1, 1);
-			glTexCoord2f(0, 0);
-			glVertex2f(-1, 1);
-			glEnd();
-			TextureImpl.bindNone();
+                        texture.bind();
+                        glColor3f(1, 1, 1);
+                        glBegin(GL_QUADS);
+                        glTexCoord2f(0, 1);
+                        glVertex2f(-1, -1);
+                        glTexCoord2f(1, 1);
+                        glVertex2f(1, -1);
+                        glTexCoord2f(1, 0);
+                        glVertex2f(1, 1);
+                        glTexCoord2f(0, 0);
+                        glVertex2f(-1, 1);
+                        glEnd();
+                        Texture.bindNone();
 		}
 		
 		glPopMatrix();

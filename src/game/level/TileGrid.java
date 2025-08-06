@@ -15,7 +15,7 @@ import java.util.Set;
 
 import javax.imageio.stream.FileImageInputStream;
 
-import org.newdawn.slick.opengl.TextureImpl;
+import game.Texture;
 
 public class TileGrid {
 	public final int numRows, numCols;
@@ -201,7 +201,7 @@ public class TileGrid {
 			glVertex2f(col - 0.5f, row + 0.5f);
 			glEnd();
 			
-			TextureImpl.bindNone();
+                        Texture.bindNone();
 		}
 	}
 	
