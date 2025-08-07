@@ -11,6 +11,20 @@ const levelOrder = ['1', '2', '3', 'b'];
 const app = new PIXI.Application({ width: 600, height: 500, backgroundColor: 0x000000 });
 document.body.appendChild(app.view as HTMLCanvasElement);
 
+const info = document.createElement('div');
+info.id = 'info';
+info.innerHTML = `
+  <p><a href="https://github.com/brandonpickering/zombie-game">Source on GitHub</a></p>
+  <h2>Controls</h2>
+  <ul>
+    <li>ASDW to move.</li>
+    <li>Left click to shoot.</li>
+    <li>Right click or space to stab.</li>
+    <li><b>Debug:</b> Press 1-4 to switch level.</li>
+  </ul>
+`;
+document.body.appendChild(info);
+
 Camera.init(app);
 TextureManager.loadTextures();
 FontManager.loadFonts();
