@@ -34,7 +34,7 @@ export class Level {
     if (levelName === 'b') {
       for (const c of this.creatures) if (c instanceof TurretZombie) { this.boss = c; break; }
     }
-    if (levelName === '3' || levelName === 'B') this.player.ammo = 0;
+    if (levelName === '3' || levelName === 'b') this.player.ammo = 0;
   }
 
   static async load(levelName: string): Promise<Level> {
