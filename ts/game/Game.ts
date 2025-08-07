@@ -10,6 +10,8 @@ export class Game {
   paused = false;
   private levelOrder: string[] = [];
   private keySprite: PIXI.Sprite = new PIXI.Sprite(TextureManager.KEY);
+  private healthText: PIXI.Text = new PIXI.Text('', FontManager.DISPLAY);
+  private ammoText: PIXI.Text = new PIXI.Text('', FontManager.DISPLAY);
 
   constructor(levels: string[], private world: PIXI.Container) {
     this.levelOrder = [...levels];
@@ -73,19 +75,13 @@ export class Game {
       ui.addChild(this.keySprite);
       healthX = 45; // offset to avoid overlapping the key icon
     }
-    const healthText = new PIXI.Text(
-      `Health: ${this.level.player.health}`,
-      FontManager.DISPLAY
-    );
-    healthText.x = healthX;
-    healthText.y = Camera.height - healthText.height;
-    ui.addChild(healthText);
-    const ammoText = new PIXI.Text(
-      `Ammo: ${this.level.player.ammo}`,
-      FontManager.DISPLAY
-    );
-    ammoText.x = Camera.width - ammoText.width;
-    ammoText.y = Camera.height - ammoText.height;
-    ui.addChild(ammoText);
+    this.healthText.text = `Health: ${this.level.player.health}`;
+    this.healthText.x = healthX;
+    this.healthText.y = Camera.height - this.healthText.height;
+    ui.addChild(this.healthText);
+    this.ammoText.text = `Ammo: ${this.level.player.ammo}`;
+    this.ammoText.x = Camera.width - this.ammoText.width;
+    this.ammoText.y = Camera.height - this.ammoText.height;
+    ui.addChild(this.ammoText);
   }
 }

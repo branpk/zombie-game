@@ -57,7 +57,10 @@ export class Level {
           this.didDie = true;
         }
         const disp = this.creatures[i].display;
-        if (disp && disp.parent) disp.parent.removeChild(disp);
+        if (disp && disp.parent) {
+          disp.parent.removeChild(disp);
+          if (typeof (disp as any).destroy === 'function') (disp as any).destroy();
+        }
         this.creatures.splice(i, 1);
         i--;
       }
@@ -83,10 +86,11 @@ export class Level {
       }
       if (!struck) {
         const tile = this.tileGrid.getTile(b.pos);
-        if (tile && this.tileGrid.tiles[tile[0]][tile[1]]) struck = true;
+        if (!tile || this.tileGrid.tiles[tile[0]][tile[1]]) struck = true;
       }
       if (struck) {
         if (b.graphics.parent) b.graphics.parent.removeChild(b.graphics);
+        b.graphics.destroy();
         this.bullets.splice(i, 1);
         i--;
       }
@@ -108,6 +112,7 @@ export class Level {
       if (pickedUp) {
         if (item.display && item.display.parent) {
           item.display.parent.removeChild(item.display);
+          if (typeof (item.display as any).destroy === 'function') (item.display as any).destroy();
         }
         this.items.splice(i, 1);
         i--;
